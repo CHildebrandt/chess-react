@@ -1,0 +1,70 @@
+.container {
+    position: absolute;
+    width: 100%;
+    max-width: 700px;
+    height: 100%;
+    top: 0;
+    left: 100%;
+    padding: 1em;
+    background-color: white;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+    overflow: auto;
+    &.show {
+        transform: translate3d(-100%, 0, 0);
+    }
+    & .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+    & h2 {
+        text-align: center;
+        margin-top: 0.5em;
+        margin-bottom: 0.25em;
+    }
+}
+
+.playAsBtns, .levelBtns {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5em;
+}
+
+.playAsBtns {
+    & button {
+        padding: 0.5em;
+        & svg {
+            font-size: 2em;
+        }
+    }
+}
+
+.levelBtns {
+    & button {
+        font-size: 1em;
+        padding: 0.2em;
+    }
+}
+
+.modeBtns {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5em;
+    & > button {
+        position: relative;
+        width: 100%;
+        padding: 0.4em;
+        font-size: 1em;
+        font-weight: 600;
+    }
+}
+
+.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
+}

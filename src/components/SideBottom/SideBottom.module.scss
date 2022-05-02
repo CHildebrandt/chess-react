@@ -1,0 +1,27 @@
+.panel {
+    height: 200px;
+    & .text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+        width: 100%;
+        margin-top: 1em;
+        min-height: 4em;
+        background-color: rgba(0,0,0,0.1);
+        border-radius: 0.5em;
+        & h2 {
+            text-align: center;
+            font-size: 1.5em;
+        }
+    }
+    & .calcstate {
+        display: flex;
+        justify-content: center;
+    }
+    & .aiInfo {
+        text-align: center;
+        font-size: 0.9em;
+        margin-top: 0.5em;
+    }
+}

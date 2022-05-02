@@ -1,0 +1,248 @@
+:root {
+    --size: 500px;
+    --blue: linear-gradient(170deg, rgba(92,187,245,1) 0%, rgba(44,170,168,1) 100%);
+    --orange: linear-gradient(170deg, rgba(255,185,78,1) 0%, rgba(215,159,59,1) 100%);
+}
+
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--blue);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    gap: 2ch;
+    padding: 3ch 3ch 1ch 1ch;
+    border-radius: 1em;
+    box-shadow: 0.5em 0.5em 2em rgba(0,0,0,0.3);
+    background-color: rgba(255,255,255,1);
+}
+
+article {
+    position: relative;
+    overflow: hidden;
+}
+
+#board-container {
+    position: relative;
+}
+
+#nums, #chars {
+    display: grid;
+    & h2 {
+        transition: transform 0.5s;
+        text-align: center;
+        user-select: none;
+    }
+}
+
+#nums {
+    position: absolute;
+    grid-template-rows: repeat(8, 12.5%);
+    width: 3.5ch;
+    height: var(--size);
+    align-items: center;
+}
+
+#chars {
+    grid-template-columns: repeat(8, 12.5%);
+    width: var(--size);
+}
+
+.board, .virtual-board, #chars {
+    margin-left: 3.5ch;
+}
+
+@keyframes flip {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(0.5) rotate(90deg);
+    }
+    100% {
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+@keyframes unflip {
+    0% {
+        transform: scale(1) rotate(180deg);
+    }
+    50% {
+        transform: scale(0.5) rotate(90deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.board, .virtual-board {
+    width: var(--size);
+    height: var(--size);
+    display: grid;
+    grid-template-rows: repeat(8, 12.5%);
+    grid-template-columns: repeat(8, 12.5%);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: .5em;
+    overflow: hidden;
+    animation: unflip 600ms forwards;
+    &.flipped {
+        animation: flip 600ms forwards;
+    }
+}
+
+.board {
+    position: absolute;
+}
+
+.virtual-board {
+    position: relative;
+    z-index: 1;
+    &.flipped svg {
+        transform: rotate(180deg);
+    }
+}
+
+#side {
+    width: 400px;
+}
+
+button {
+    background: var(--blue);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0.1em 0.1em 0.5em rgba(0,0,0,0.5);
+    border-radius: 10px;
+    font-family: 'Nunito';
+    color: white;
+    text-shadow: 0.05em 0.05em 0.2em rgba(0,0,0,0.3);
+    transition: transform 0.3s cubic-bezier(.5, -.5, .5, 3);
+    &:hover {
+        transform: scale(1.04);
+    }
+    &.selected {
+        background: var(--orange);
+    }
+}
+
+#start-btn, #menu-btn {
+    display: block;
+    margin: 1em auto 0 auto;
+    width: 80%;
+    padding: 0.4em;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.square, .piece {
+    user-select: none;
+    transition: opacity 0.3s;
+}
+
+.square {
+    position: relative;
+    pointer-events: none;
+    &.black {
+        background-color: rgb(40,40,40);
+    }
+    &.white {
+        background-color: antiquewhite;
+    }
+    &.highlight::after {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background-color: orange;
+        opacity: 0.7;
+    }
+    &.prev-move::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background-color: blue;
+        opacity: 0.7;
+    }
+}
+
+.piece {
+    z-index: 3;
+    &.moving {
+        z-index: 5;
+    }
+    & svg {
+        display: block;
+        position: relative;
+        transition: all 0.6s;
+        width: 80%;
+        height: 80%;
+        margin: 10%;
+    }
+}
+
+.svg-inline--fa {
+    stroke-width: 20;
+}
+
+#mobile-button {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    z-index: 7;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: white;
+    z-index: 9;
+    & > div {
+        position: static !important;
+    }
+}
+
+@media only screen and (max-width: 999px), (max-height: 500px) {
+    #side {
+        display: none;
+    }
+    #mobile-button {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 600px), (max-height: 600px) {
+    :root {
+        --size: 400px;
+    }
+    #chars h2, #nums h2 {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 500px), (max-height: 500px) {
+    :root {
+        --size: 300px;
+    }
+}
+
+@media only screen and (max-width: 400px), (max-height: 400px) {
+    :root {
+        --size: 200px;
+    }
+    #mobile-button {
+        display: none;
+    }
+}
