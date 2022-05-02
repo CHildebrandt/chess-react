@@ -22,5 +22,6 @@
   },
   "include": [
     "src"
-  ]
+, "src/worker/ai.worker.ts"  ],
+"exclude": ["node_modules", "build", "dist", "src/**/*.js", "src/**/*.jsx", "src/worker/stockfish/*"]
 }
